@@ -1,0 +1,9 @@
+fazer o crud
+fazer a autenticação
+fazer o login de quem ver e faz a compra e gera o carrinho e a nota fiscal,
+tentar colcoar o mapa e marcar eele no endereco de entrega da pessoa pegando o resto do endereco dela em api aberta do google
+gerar o app dele, buildar, sla
+
+entrega, quinta feira, 15/06
+
+registro e cadastro dos users
