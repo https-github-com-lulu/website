@@ -6,9 +6,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  img:{
-    width: 150,
-    height: 150,
-  },
+//   conjuntoProd:{
+//     flex: 0.5,
+//     flexDirection: 'row',
+//   }
 })
 export default styles;
