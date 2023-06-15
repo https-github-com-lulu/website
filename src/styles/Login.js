@@ -30,8 +30,9 @@ const styles = StyleSheet.create({
     color:'#51B2FF',
     textDecoration: 'none'
   },
-  link:{
-    marginTop:'1rem',
+  botoes:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   }
 });
 export default styles;

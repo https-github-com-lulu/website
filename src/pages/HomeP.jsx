@@ -1,8 +1,10 @@
 import { Text, View } from 'react-native';
 import styles from '../styles/HomeP.js';
+import { db } from '../../firebase-config.js';
 // import { FlatGrid } from 'react-native-super-grid';
 
 export default function HomeP() {
+  
   return (
     <View style={styles.container}>
     {/* <FlatGrid

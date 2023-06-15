@@ -6,7 +6,6 @@ import Login from './src/pages/Login';
 import HomeC from './src/pages/HomeC';
 import HomeE from './src/pages/HomeE';
 
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -14,7 +13,7 @@ export default function App() {
     <NavigationContainer>
     <Stack.Navigator initialRouteName="lojax">
       <Stack.Screen name="lojax" component={HomeMenu} options={{ title: 'Loja X'}}/>
-      <Stack.Screen name="login" component={Login} options={{ title: 'Login' }}/>
+      <Stack.Screen name="login" component={Login} options={{ title: 'Login / Cadastro' }}/>
       <Stack.Screen name="cadastro_produtos" component={HomeVT} options={{ title: 'Administração de Produtos' }}/>
       <Stack.Screen name="cliente" component={HomeC} options={{ title: 'Cliente' }}/>
       <Stack.Screen name="entregador" component={HomeE} options={{ title: 'Entregador' }}/>
