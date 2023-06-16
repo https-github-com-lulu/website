@@ -31,10 +31,7 @@ export default function Login({ navigation, route }) {
         navigation.navigate('homevt', { produtos: produtos })
       }
       else if(usuario === 'Cliente'){
-        navigation.navigate('cliente')
-      }
-      else if(usuario === 'Entregador'){
-        navigation.navigate('entregador')
+        navigation.navigate('homep', { produtos: produtos })
       }
     })
     .catch(error =>{

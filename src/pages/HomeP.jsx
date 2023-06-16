@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import styles from '../styles/HomeP.js';
 import { useEffect, useState } from 'react';
 
@@ -15,18 +15,26 @@ export default function HomeP({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-        <View style={styles.conjuntoProd}>
-          {produtos && produtos.map((p, index) => (
-            <p key={index}>{p.name}</p>
-          ))}
-            {/* <View style={{width:100, height: 100, backgroundColor:'purple'}}>
-            </View>
-            <View style={{width:100, height: 100, backgroundColor:'blue'}}>
-            </View>
-            <View style={{width:100, height: 100, backgroundColor:'black'}}>
-            </View> */}
+      {/* <FlatList
+        numColumns={3}
+        data={produtos}
+        renderItem={({p}) => {
+          return(
+            <>
+              <p>{p.name}</p>
+            </>
+          )
+        }}  */}
+      {produtos && produtos.map((p, index) => (
+        <View style={styles.conjuntoProd} key={index}>
+          <p>{p.name}</p>
+          <p>R$ {p.preco}</p>
+          <img src={repositorio + p.urlFoto + media} style={{width: 80, height: 80}}/>
+          
         </View>
-      <Text>HomeP</Text>
+      ))}
+      {/* /> */}
+    <Text>HomeP</Text>
     </View>
   );
 }

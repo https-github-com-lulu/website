@@ -25,8 +25,7 @@ export default function HomeMenu({ navigation }) {
         })
       } */}
       <Button title='Vendedor' onPress={() => navigation.navigate('login', { usuario: 'Vendedor', produtos: produtos})}/>
-      <Button title='Cliente' onPress={() => navigation.navigate('login', { usuario: 'Cliente' })}/>
-      <Button title='Entregador' onPress={() => navigation.navigate('login', { usuario: 'Entregador' })}/>
+      <Button title='Cliente' onPress={() => navigation.navigate('login', { usuario: 'Cliente', produtos: produtos})}/>
     </View>
   );
 }
