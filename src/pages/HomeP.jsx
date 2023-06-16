@@ -10,21 +10,21 @@ export default function HomeP({ navigation, route }) {
   useEffect(() =>{
     const propsProd = route.params.produtos
     console.log('------ ', propsProd)
-    setProdutos(propsProd ? propsProd : JSON.parse(localStorage.getItem('produtos')))
+    setProdutos(propsProd ? propsProd :JSON.parse(localStorage.getItem('produtos')))
   }, [localStorage.getItem('produtos')])
 
   return (
     <View style={styles.container}>
-      {/* <FlatList
-        numColumns={3}
-        data={produtos}
-        renderItem={({p}) => {
-          return(
-            <>
-              <p>{p.name}</p>
-            </>
-          )
-        }}  */}
+    {/* <FlatList */}
+    {/* //     numColumns={3}
+    //     data={produtos}
+    //     renderItem={({p}) => { */}
+    {/* //       return(
+    //         <>
+    //           <p>{p && p.name}</p>
+    //         </>
+    //       ) */}
+        {/* // }}  */}
       {produtos && produtos.map((p, index) => (
         <View style={styles.conjuntoProd} key={index}>
           <p>{p.name}</p>
