@@ -8,7 +8,9 @@ export default function HomeP({ navigation, route }) {
   const [produtos, setProdutos] = useState('')
   
   useEffect(() =>{
-    setProdutos(route.params.produtos)
+    const propsProd = route.params.produtos
+    console.log('------ ', propsProd)
+    setProdutos(propsProd ? propsProd : JSON.parse(localStorage.getItem('produtos')))
   }, [localStorage.getItem('produtos')])
 
   return (

@@ -27,7 +27,8 @@ export default function Login({ navigation, route }) {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       if (usuario === 'Vendedor'){
-        navigation.navigate('cadastro_produtos', { produtos: produtos })
+        console.log(produtos)
+        navigation.navigate('homevt', { produtos: produtos })
       }
       else if(usuario === 'Cliente'){
         navigation.navigate('cliente')
