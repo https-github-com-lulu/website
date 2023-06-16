@@ -8,6 +8,7 @@ export default function Login({ navigation, route }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+
   const Cadastrar = () =>{
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -18,14 +19,15 @@ export default function Login({ navigation, route }) {
     .catch(error =>{
       console.log(error)
       Alert.alert(error.message)
-     })
+    })
   }
   const Logar = () =>{
+    const produtos = route.params.produtos
     const usuario = route.params.usuario
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       if (usuario === 'Vendedor'){
-        navigation.navigate('cadastro_produtos')
+        navigation.navigate('cadastro_produtos', { produtos: produtos })
       }
       else if(usuario === 'Cliente'){
         navigation.navigate('cliente')

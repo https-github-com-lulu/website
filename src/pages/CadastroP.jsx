@@ -2,18 +2,21 @@ import styles from '../styles/Login.js';
 import React, { useState } from 'react';
 import { Button, Image, View, TextInput, Text} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { ref, uploadBytesResumable, getDownloadURL, collection, addDoc } from "firebase/storage";
-import { firestore, storage } from '../../firebase-config.js';
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { db, storage } from '../../firebase-config.js';
 import { Alert } from 'react-native-web';
 
-export default function HomeV({ navigation }) {
+export default function HomeV( { naviagtion, route } ) {
   const [nome, setNome] = useState('')
   const [preco, setPreco] = useState('')
   const [qtd, setQtd] = useState('')
   const [image, setImage] = useState(null);
-  const [URLFoto, setURLFoto] = useState('');
+  const [idFoto, setidFoto] = useState('');
+  const [prodData, setProdData] = useState(false)
 
   const pickImage = async () => {
+    setidFoto('')
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       base64: true,
@@ -23,11 +26,11 @@ export default function HomeV({ navigation }) {
     });
     if (!result.canceled) {
       setImage(result.uri);
+      setidFoto(Date.now())
     }
   };
   
   const cadastrarProd = async () =>{
-
     if ( image != null && nome != '' && preco != '' && qtd != ''){
       const blobImage = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -41,21 +44,17 @@ export default function HomeV({ navigation }) {
         xhr.open("GET", image, true)
         xhr.send(null)
       })
-    
-      // Create the file metadata
+
       /** @type {any} */
       const metadata = {
         contentType: 'image/jpeg'
       };
       
-      // Upload file and metadata to the object 'images/mountains.jpg'
-      const storageRef = ref(storage, 'imgs/' + Date.now());
+      const storageRef = ref(storage, 'imgs/' + idFoto);
       const uploadTask = uploadBytesResumable(storageRef, blobImage, metadata);
-      
-      // Listen for state changes, errors, and completion of the upload.
+
       uploadTask.on('state_changed',
       (snapshot) => {
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
         switch (snapshot.state) {
@@ -77,26 +76,28 @@ export default function HomeV({ navigation }) {
                 break;
         }
       },
-      () => {
-        // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log('File available at', downloadURL);
-          setURLFoto(downloadURL)
-        });
-      })
-      console.log('oiiiii')
-    // Add a new document with a generated id.
-      const docRef = await addDoc(collection(firestore, "produtos"), {
+          // console.log('File available at', downloadURL);
+        })
+      )
+      const docRef = await addDoc(collection(db, "produtos"), {
         name: nome,
         preco: parseFloat(preco),
         qtd: parseInt(qtd),
-        urlFoto: URLFoto
+        urlFoto: idFoto
       });
-      console.log("Document written with ID: ", docRef.id);
       setImage('')
       setNome('')
       setPreco('')
       setQtd('')
+      
+      getDocs(collection(db, "produtos")).then(docSnap => {
+        let produtos = [];
+        docSnap.forEach((doc) => {
+          produtos.push({ ...doc.data(), id:doc.id })
+        })
+        localStorage.setItem('produtos',  JSON.stringify(produtos))
+      })
     }
     else{
       Alert.alert('Preencha todos os campos e tente novamente!')
